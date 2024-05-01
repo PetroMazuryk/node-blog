@@ -11,13 +11,13 @@ const UserSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    password: {
+    passwordHash: {
       type: String,
       required: true,
     },
     avatarUrl: String,
   },
-  { timestamps: true }
+  { versionKey: false, timestamps: true }
 );
 
 export default mongoose.model("User", UserSchema);
