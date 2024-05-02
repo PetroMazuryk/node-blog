@@ -13,4 +13,6 @@ postRouter.post(
   ctrl.createPost
 );
 
+postRouter.get("/", authenticate, ctrl.getAllPosts);
+
 export default postRouter;

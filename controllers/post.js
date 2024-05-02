@@ -12,6 +12,22 @@ const createPost = async (req, res) => {
   res.status(201).json(result);
 };
 
+const getAllPosts = async (req, res) => {
+  const {
+    user: { _id: owner },
+    query: { page = 1, limit = 5 },
+  } = req;
+  const skip = (page - 1) * limit;
+
+  const posts = await Post.find({ owner }, "-createdAt -updatedAt", {
+    skip,
+    limit: Number(limit),
+  }).populate("owner", "email ");
+
+  res.json(posts);
+};
+
 export default {
   createPost: ctrlWrapper(createPost),
+  getAllPosts: ctrlWrapper(getAllPosts),
 };
