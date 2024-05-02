@@ -73,9 +73,25 @@ const deletePost = async (req, res) => {
   res.status(200).json(result);
 };
 
+const updatePost = async (req, res) => {
+  const { id } = req.params;
+  const { _id: owner } = req.user;
+
+  const result = await Post.findOneAndUpdate({ _id: id, owner }, req.body, {
+    new: true,
+  });
+
+  if (!result) {
+    throw HttpError(404, "Not found");
+  }
+
+  res.json(result);
+};
+
 export default {
   createPost: ctrlWrapper(createPost),
   getAllPosts: ctrlWrapper(getAllPosts),
   getOnePost: ctrlWrapper(getOnePost),
   deletePost: ctrlWrapper(deletePost),
+  updatePost: ctrlWrapper(updatePost),
 };
