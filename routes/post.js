@@ -18,4 +18,6 @@ postsRouter.get("/", authenticate, ctrl.getAllPosts);
 
 postsRouter.get("/:id", authenticate, isValidId, ctrl.getOnePost);
 
+postsRouter.delete("/:id", authenticate, isValidId, ctrl.deletePost);
+
 export default postsRouter;
