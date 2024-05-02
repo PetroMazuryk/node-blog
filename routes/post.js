@@ -2,17 +2,20 @@ import express from "express";
 import { authenticate } from "../middlewares/authenticate.js";
 import { validateBody } from "../middlewares/validateBody.js";
 import { createPostSchema } from "../schemas/postsSchemas.js";
+import { isValidId } from "../middlewares/isValidId.js";
 import ctrl from "../controllers/post.js";
 
-const postRouter = express.Router();
+const postsRouter = express.Router();
 
-postRouter.post(
+postsRouter.post(
   "/",
   authenticate,
   validateBody(createPostSchema),
   ctrl.createPost
 );
 
-postRouter.get("/", authenticate, ctrl.getAllPosts);
+postsRouter.get("/", authenticate, ctrl.getAllPosts);
 
-export default postRouter;
+postsRouter.get("/:id", authenticate, isValidId, ctrl.getOnePost);
+
+export default postsRouter;

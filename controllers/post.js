@@ -27,7 +27,20 @@ const getAllPosts = async (req, res) => {
   res.json(posts);
 };
 
+const getOnePost = async (req, res) => {
+  const { id } = req.params;
+  const { _id: owner } = req.user;
+
+  const result = await Post.findOne({ _id: id, owner });
+
+  if (!result) {
+    throw HttpError(404, "Not found");
+  }
+  res.json(result);
+};
+
 export default {
   createPost: ctrlWrapper(createPost),
   getAllPosts: ctrlWrapper(getAllPosts),
+  getOnePost: ctrlWrapper(getOnePost),
 };
