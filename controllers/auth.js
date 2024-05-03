@@ -57,8 +57,15 @@ const getCurrent = async (req, res) => {
   });
 };
 
+const updateAvatar = async (req, res) => {
+  res.status(200).json({
+    url: `/uploads/${req.file.originalname}`,
+  });
+};
+
 export default {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
   getCurrent: ctrlWrapper(getCurrent),
+  updateAvatar: ctrlWrapper(updateAvatar),
 };
