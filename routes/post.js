@@ -16,6 +16,8 @@ postsRouter.post(
 
 postsRouter.get("/", authenticate, ctrl.getAllPosts);
 
+postsRouter.get("/tags", authenticate, ctrl.getLastTags);
+
 postsRouter.get("/:id", authenticate, isValidId, ctrl.getOnePost);
 
 postsRouter.delete("/:id", authenticate, isValidId, ctrl.deletePost);

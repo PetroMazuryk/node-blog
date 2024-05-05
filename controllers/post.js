@@ -27,6 +27,25 @@ const getAllPosts = async (req, res) => {
   res.json(posts);
 };
 
+const getLastTags = async (req, res) => {
+  const {
+    user: { _id: owner },
+    query: { page = 1, limit = 5 },
+  } = req;
+  const skip = (page - 1) * limit;
+
+  const posts = await Post.find({ owner }, "-createdAt -updatedAt", {
+    skip,
+    limit: Number(limit),
+  });
+
+  const tags = posts
+    .map((obj) => obj.tags)
+    .flat()
+    .slice(0, 5);
+  res.json(tags);
+};
+
 // const getOnePost = async (req, res) => {
 //   const { id } = req.params;
 //   const { _id: owner } = req.user;
@@ -94,4 +113,5 @@ export default {
   getOnePost: ctrlWrapper(getOnePost),
   deletePost: ctrlWrapper(deletePost),
   updatePost: ctrlWrapper(updatePost),
+  getLastTags: ctrlWrapper(getLastTags),
 };
