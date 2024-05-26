@@ -4,7 +4,14 @@ import { Post } from "../models/posts.js";
 
 const createPost = async (req, res) => {
   const { _id: owner } = req.user;
-  const result = await Post.create({ ...req.body, owner });
+  // const result = await Post.create({ ...req.body, owner });
+  const result = await Post.create({
+    title: req.body.title,
+    text: req.body.text,
+    imageUrl: req.body.imageUrl,
+    tags: req.body.tags.split(","),
+    owner,
+  });
 
   if (!result) {
     throw HttpError(201, "Not found");
@@ -72,7 +79,7 @@ const getOnePost = async (req, res) => {
     {
       returnDocument: "after",
     }
-  );
+  ).populate("user");
   if (!result) {
     throw HttpError(404, "Not found");
   }

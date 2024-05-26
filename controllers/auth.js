@@ -59,7 +59,7 @@ const getCurrent = async (req, res) => {
 
 const updateAvatar = async (req, res) => {
   res.status(200).json({
-    url: `/uploads/${req.file.originalname}`,
+    url: `/upload/${req.file.originalname}`,
   });
 };
 

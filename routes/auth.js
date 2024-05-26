@@ -19,7 +19,7 @@ authRouter.get("/current", authenticate, ctrl.getCurrent);
 
 authRouter.post(
   "/upload",
-  authenticate,
+
   upload.single("image"),
   ctrl.updateAvatar
 );

@@ -3,13 +3,13 @@ import { app } from "./app.js";
 
 mongoose.set("strictQuery", true);
 
-const { DB_HOST, PORT = 3000 } = process.env;
+const { DB_HOST, PORT = 4444 } = process.env;
 
 mongoose
   .connect(DB_HOST)
   .then(() => {
     app.listen(PORT);
-    console.log("Database connection successful");
+    console.log("Database connection successfu, port:", `${PORT}`);
   })
   .catch((error) => {
     console.log(error.message);

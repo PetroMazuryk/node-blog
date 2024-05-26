@@ -14,6 +14,7 @@ const postSchema = new Schema(
       required: true,
       unique: true,
     },
+
     tags: {
       type: Array,
       default: [],
