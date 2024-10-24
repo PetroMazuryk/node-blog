@@ -57,6 +57,16 @@ const getCurrent = async (req, res) => {
   });
 };
 
+const logout = async (req, res) => {
+  const { _id } = req.user;
+
+  await User.findByIdAndUpdate(_id, { token: "" });
+
+  res.json({
+    message: "Logout success",
+  });
+};
+
 const updateAvatar = async (req, res) => {
   res.status(200).json({
     url: `/upload/${req.file.originalname}`,
@@ -67,5 +77,6 @@ export default {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
   getCurrent: ctrlWrapper(getCurrent),
+  logout: ctrlWrapper(logout),
   updateAvatar: ctrlWrapper(updateAvatar),
 };
