@@ -79,7 +79,7 @@ const getOnePost = async (req, res) => {
     {
       returnDocument: "after",
     }
-  ).populate("user");
+  ).populate("owner");
   if (!result) {
     throw HttpError(404, "Not found");
   }
